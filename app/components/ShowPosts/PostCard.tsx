@@ -18,7 +18,11 @@ export default function PostCard({
 
   // edit post function (to be implemented)
   const editPost = (index) => {
-    setEditIsOpen(true);
+    setEditIsOpen({
+      index: i,
+      author,
+      description,
+    });
   };
 
   return (
@@ -47,13 +51,6 @@ export default function PostCard({
           </button>
         </div>
       </div>
-      <EditModal
-        editIsOpen={editIsOpen}
-        setEditIsOpen={setEditIsOpen}
-        posts={posts}
-        setPosts={setPosts}
-        index={i}
-      />
     </div>
   );
 }

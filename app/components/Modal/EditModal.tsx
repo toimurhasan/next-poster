@@ -2,15 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-export default function EditModal({ editIsOpen, setEditIsOpen, posts, setPosts, index }) {
+export default function EditModal({ editIsOpen, setEditIsOpen, posts, setPosts }) {
+  const index = editIsOpen?.index;
   const [author, setAuthor] = useState("");
   const [description, setDescription] = useState("");
-
-  useEffect(() => {
-    const obj = posts.find((post, i) => i === index);
-    setAuthor(obj.author);
-    setDescription(obj.description);
-  }, [editIsOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,10 +13,13 @@ export default function EditModal({ editIsOpen, setEditIsOpen, posts, setPosts, 
     const data = { author, description };
     // console.log(data);
 
+    // console.log(posts, index);
     const latestPosts = posts.filter((post, i) => i !== index);
-    // setPosts([...latestPosts.slice(0, index), data, ...latestPosts.slice(index)]);
-    // setEditIsOpen(false);
-    console.log([...latestPosts.slice(0, index)]);
+    console.log(latestPosts);
+    setPosts([...latestPosts.slice(0, index), data, ...latestPosts.slice(index)]);
+    setEditIsOpen(null);
+    // console.log([...latestPosts.slice(0, index)]);
+    // console.log([...latestPosts.slice(index)]);
   };
   return (
     <div className="">
@@ -53,7 +51,7 @@ export default function EditModal({ editIsOpen, setEditIsOpen, posts, setPosts, 
                 <label className="block text-white/80 mb-1">Author</label>
                 <input
                   type="text"
-                  value={author}
+                  defaultValue={editIsOpen.author}
                   onChange={(e) => setAuthor(e.target.value)}
                   placeholder="Enter author name"
                   className="w-full px-3 py-2 rounded-md bg-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40"
@@ -64,7 +62,7 @@ export default function EditModal({ editIsOpen, setEditIsOpen, posts, setPosts, 
               <div>
                 <label className="block text-white/80 mb-1">Description</label>
                 <textarea
-                  value={description}
+                  defaultValue={editIsOpen.description}
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="Enter description"
                   className="w-full px-3 py-2 rounded-md bg-white/20 text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-white/40"

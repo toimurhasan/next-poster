@@ -23,6 +23,7 @@ export default function Modal({ isOpen, setIsOpen, posts, setPosts }) {
     setDescription("");
     setIsOpen(false);
   };
+  
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900">
       {/* Modal */}
